@@ -4,6 +4,7 @@
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <title>React - Template</title>
+    <link rel="stylesheet" src="../css/main.css">
     <script src="../../js/react.min.js"></script>
     <script src="../../js/react-dom.min.js"></script>
     <script src="../../js/browser.min.js"></script>
@@ -13,10 +14,95 @@
     <div id="container"></div>
 
     <script type="text/babel">
+
+      //Tut 7: Component with state
+      var CheckBox = React.createClass( {
+
+        getInitialState: function() {
+          //default function
+          return {checked:true}
+        },
+
+        handleChecked: function() {
+          //written to change the message on the fly
+          this.setState({checked: !this.state.checked})
+        },
+
+        render: function() {
+          var msg;
+          if(this.state.checked) {
+            msg= "checked";
+          }
+          else {
+            msg="unchecked";
+          }
+          return(<div>
+            <input type="checkbox" defaultChecked={this.state.checked} onChange={this.handleChecked}/>
+            <h3>Checkbox {msg}</h3>
+            </div>);
+        }
+      })
+
+      //Component with event handling
+        var Sticky = React.createClass( {
+
+          edit: function() {
+            alert("Editing comment");
+
+          },
+
+          delete: function() {
+
+            alert("Deleting");
+          },
+
+          //Draws the component html
+          render: function() {
+            return (
+              <div className="commentContainer">
+                <div className="commentText">{this.props.children}</div>
+                <button onClick={this.edit} className="button-primary">Editing</button>
+                <button onClick={this.delete} className="button-dange">Delete</button>
+              </div>
+            );
+          }
+        });
+
+        //component with properties
+        var Seed = React.createClass( {
+          render: function() {
+            return (<div><h1>{this.props.name1}</h1><h2>{this.props.typeofseed}</h2></div>)
+          }
+        })
+
+        //Component with multiple children
+        var Strawberry = React.createClass( {
+          render: function() {
+            return (<div><h3>Hi world</h3><p>The world</p> </div>);
+          }
+
+        });
+
+        //Basic component
         ReactDOM.render(
-            <h2>Welcome to React!</h2>,
-            document.getElementById('container')
-        );
+          <div>
+            <div><CheckBox /></div>
+
+            <div className="board">
+              <Sticky>Heyyyyy</Sticky>
+              <Sticky>there</Sticky>
+              <Sticky>yo</Sticky>
+            </div>
+
+
+            <Seed name1="Orange" typeofseed="fruit"/>
+            <Seed name1="Marigold" typeofseed="flower"/>
+            <Seed name1="Neem" typeofseed="tree"/>
+            <Strawberry/>
+            </div>,
+            document.getElementById('container'));
+
+
     </script>
 
 </body>
